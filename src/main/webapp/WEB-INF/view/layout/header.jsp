@@ -14,9 +14,9 @@
         <body>
             <div class="align_center">
                 <c:choose>
-                    <c:when test="principal == null">
-                        <a href="/join">회원가입</a>
+                    <c:when test="${principal == null}">
                         <a href="/login">로그인</a>
+                        <a href="/join">회원가입</a>
                     </c:when>
 
                     <c:otherwise>

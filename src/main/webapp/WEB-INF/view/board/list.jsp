@@ -12,11 +12,13 @@
                     <th>제목</th>
                     <th>작성일</th>
                 </tr>
+                <c:forEach items="${boardList}" var="board">
                 <tr>
-                    <td>1</td>
-                    <td>첫번째입니당</td>
-                    <td>2023-01-27</td>
+                    <td>${board.id}</td>
+                    <td>${board.title}</td>
+                    <td>${board.created_at}</td>
                 </tr>
+                </c:forEach>
             </table>
         </div>
         <%@ include file="../layout/footer.jsp" %>

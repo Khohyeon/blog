@@ -12,7 +12,7 @@ public interface BoardRepository {
 
     public int deleteById(int id);
 
-    public List<User> findAll();
+    public List<Board> findAll();
 
-    public User findById(int id);
+    public Board findById(int id);
 }
