@@ -16,7 +16,7 @@
                 <tr>
                     <td>${board.id}</td>
                     <td>${board.title}</td>
-                    <td>${board.created_at}</td>
+                    <td>${board.createdAt}</td>
                 </tr>
                 </c:forEach>
             </table>

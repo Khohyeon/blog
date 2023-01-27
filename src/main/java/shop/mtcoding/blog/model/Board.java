@@ -11,5 +11,5 @@ public class Board {
     private int id;
     private String title;
     private int userId;
-    private Timestamp created_at;
+    private Timestamp createdAt;
 }

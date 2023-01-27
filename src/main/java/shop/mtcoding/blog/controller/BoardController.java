@@ -27,7 +27,7 @@ public class BoardController {
         if (principal == null) {
             return "redirect:/loginForm";
         }
-        List<Board> boardList = boardRepository.findAll();
+        List<Board> boardList = boardRepository.findList(principal.getId());
         model.addAttribute("boardList", boardList);
         return "board/list";
     }
