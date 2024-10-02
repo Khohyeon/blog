@@ -2,14 +2,25 @@ package shop.mtcoding.blog.model;
 
 import java.sql.Timestamp;
 
+import lombok.Generated;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
+import javax.persistence.*;
+
+@Entity
 @Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "BOARDS")
 public class Board {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String title;
-    private int userId;
+
+    @ManyToOne
+    private User user;
     private Timestamp createdAt;
 }

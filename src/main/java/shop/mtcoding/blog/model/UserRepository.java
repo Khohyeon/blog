@@ -1,22 +1,15 @@
 package shop.mtcoding.blog.model;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Mapper
-public interface UserRepository {
-    public int insert(@Param("username") String username, @Param("password") String password,
-            @Param("email") String email);
-
-    public int updateById(int id);
-
-    public int deleteById(int id);
-
-    public List<User> findAll();
-
-    public User findById(int id);
-
-    public User findByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
+public interface UserRepository extends JpaRepository<User, Integer> {
+//    public List<User> findAll();
+    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
+    Optional<User> findByUsernameAndPassword(String username, String password);
 }

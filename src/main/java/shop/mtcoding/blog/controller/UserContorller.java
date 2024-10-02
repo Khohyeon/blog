@@ -1,6 +1,7 @@
 package shop.mtcoding.blog.controller;
 
 import java.security.Principal;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shop.mtcoding.blog.dto.UserJoinDto;
 import shop.mtcoding.blog.model.User;
 import shop.mtcoding.blog.model.UserRepository;
 import shop.mtcoding.blog.util.Script;
@@ -38,11 +40,11 @@ public class UserContorller {
     @PostMapping("/login")
     @ResponseBody
     public String login(String username, String password) {
-        User principal = userRepository.findByUsernameAndPassword(username, password);
-        if (principal == null) {
-            return Script.back("로그인 다시해라 틀렸다 이 새끼야");
+        Optional<User> optionalUser = userRepository.findByUsernameAndPassword(username, password);
+        if (optionalUser.isEmpty()) {
+            return Script.back("로그인 정보가 없습니다. 확인 부탁드립니다.");
         }
-        session.setAttribute("principal", principal);
+        session.setAttribute("principal", optionalUser.get());
         return Script.href("board/list");
     }
 
@@ -53,11 +55,18 @@ public class UserContorller {
 
     @PostMapping("/join")
     @ResponseBody
-    public String join(String username, String password, String email) {
-        int result = userRepository.insert(username, password, email);
-        if (result != 1) {
-            return Script.back("회원가입 실패! 다시 하도록!");
+    public String join(UserJoinDto userJoinDto) {
+
+        Optional<User> optionalUsername = userRepository.findByUsername(userJoinDto.username());
+        if (optionalUsername.isPresent()) {
+            return Script.back("회원가입 실패! 중복된 유저이름 입니다.");
         }
+
+        Optional<User> optionalUserEmail = userRepository.findByEmail(userJoinDto.email());
+        if (optionalUserEmail.isPresent()) {
+            return Script.back("회원가입 실패! 중복된 이메일 입니다.");
+        }
+        userRepository.save(userJoinDto.toEntity());
         return Script.href("/loginForm");
     }
 

@@ -1,6 +1,7 @@
 package shop.mtcoding.blog.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import shop.mtcoding.blog.model.Board;
 import shop.mtcoding.blog.model.BoardRepository;
 import shop.mtcoding.blog.model.User;
+import shop.mtcoding.blog.util.Script;
 
 @Controller
 public class BoardController {
@@ -22,12 +24,12 @@ public class BoardController {
     private HttpSession session;
 
     @GetMapping("/board/list")
-    public String list(String title, Model model) {
+    public String list(Model model) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
             return "redirect:/loginForm";
         }
-        List<Board> boardList = boardRepository.findList(principal.getId());
+        List<Board> boardList = boardRepository.findAllByUserId(principal.getId());
         model.addAttribute("boardList", boardList);
         return "board/list";
     }
