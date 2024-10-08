@@ -15,7 +15,10 @@
                 <c:forEach items="${boardList}" var="board">
                 <tr>
                     <td>${board.id}</td>
-                    <td>${board.title}</td>
+                    <td>
+                    <!-- 제목에 상세보기 링크 추가 -->
+                    <a href="detail?id=${board.id}">${board.title}</a>
+                    </td>
                     <td>${board.createdAt}</td>
                 </tr>
                 </c:forEach>

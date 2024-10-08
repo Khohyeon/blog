@@ -26,6 +26,11 @@ public class UserContorller {
     @Autowired
     private HttpSession session;
 
+    @GetMapping()
+    public String main() {
+        return "board/main";
+    }
+
     @GetMapping("/logout")
     public String logout() {
         session.invalidate();

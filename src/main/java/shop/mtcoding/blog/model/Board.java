@@ -19,6 +19,7 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
+    private String content;
 
     @ManyToOne
     private User user;
